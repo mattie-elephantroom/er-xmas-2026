@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Day Drinks by the Ocean">
+<meta property="og:description" content="You are invited to Elephant Room's Annual Christmas Party. Friday 4th December 2026, Riva Rose Bay.">
+<style>body{margin:0}</style></head><body>
+<title>Day Drinks by the Ocean</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=La+Belle+Aurore&display=swap">
+<style>
+/* Layout: one centred stage. A sea-glass envelope sits on warm sand; tap the wax seal,
+   the flap folds back onto a candy-stripe liner and the painted card rises out and settles in front. */
+:root {
+  --sand: #efe4d1;
+  --sand-deep: #e3d3b8;
+  --envelope: #dfe8e3;
+  --envelope-shade: #ccdad3;
+  --envelope-edge: #b4c6bd;
+  --paper: #f9f2e4;
+  --ink: #6e2622;
+  --coral: #d9553a;
+  --coral-deep: #b23e28;
+  --sky: #7fa6d6;
+  --muted: #8a6b52;
+
+  --font-caps: "IM Fell English SC", "Cormorant SC", Georgia, serif;
+  --font-serif: "IM Fell English", Georgia, "Times New Roman", serif;
+  --font-script: "La Belle Aurore", "Snell Roundhand", "Apple Chancery", cursive;
+
+  --w: min(calc(100vw - 48px), 400px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { min-height: 100%; }
+body {
+  background:
+    radial-gradient(120% 70% at 50% 0%, #f6eee0 0%, transparent 60%),
+    var(--sand);
+  color: var(--ink);
+  font-family: var(--font-serif);
+}
+.page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 16px;
+  padding-block: 28px 56px;
+  overflow-x: hidden;
+}
+.logo { display: block; width: 148px; max-width: 60%; height: auto; }
+
+/* ---------- stage ---------- */
+.stage {
+  position: relative;
+  width: var(--w);
+  height: calc(var(--w) * 2.02);
+  margin-top: 8px;
+}
+.env {
+  position: absolute;
+  left: 0;
+  top: calc(var(--w) * 0.42);
+  width: var(--w);
+  height: calc(var(--w) * 0.68);
+  perspective: 1400px;
+  transform: translateY(calc(var(--w) * 0.215));
+  transition: transform 1.1s cubic-bezier(.55,.05,.35,1);
+  filter: drop-shadow(0 14px 18px rgba(92, 70, 40, .18));
+}
+.stage.closed .env { animation: bob 4.5s ease-in-out infinite; }
+@keyframes bob {
+  0%, 100% { transform: translateY(calc(var(--w) * 0.215)) rotate(-0.6deg); }
+  50% { transform: translateY(calc(var(--w) * 0.195)) rotate(0.5deg); }
+}
+.stage.rise .env { transform: translateY(calc(var(--w) * 0.765)); }
+.stage.settle .env { transform: translateY(0); transition-duration: 1.15s; }
+
+.paper-tex {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.env-back {
+  position: absolute; inset: 0;
+  background-color: var(--envelope);
+  border-radius: 3px;
+  z-index: 1;
+}
+.liner {
+  position: absolute;
+  left: 4%; right: 4%; top: 3%; height: 74%;
+  background-size: 150% auto;
+  background-position: 85% 90%;
+  border-radius: 2px;
+}
+.slot {
+  position: absolute;
+  left: calc(var(--w) * -0.4);
+  right: calc(var(--w) * -0.4);
+  top: calc(var(--w) * -3);
+  bottom: 0;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+}
+.stage.front .slot { overflow: visible; z-index: 6; pointer-events: auto; }
+.card {
+  position: absolute;
+  left: calc(var(--w) * 0.46);
+  top: calc(var(--w) * 3.04);
+  width: calc(var(--w) * 0.88);
+  height: calc(var(--w) * 1.18);
+  transition: transform 1.1s cubic-bezier(.55,.05,.35,1);
+  filter: drop-shadow(0 10px 14px rgba(70, 50, 30, .22));
+}
+.stage.rise .card { transform: translateY(calc(var(--w) * -1.19)) rotate(1deg); }
+.stage.settle .card {
+  transform: translateY(calc(var(--w) * 0.33)) rotate(-1.4deg) scale(1.03);
+  transition-duration: 1.15s;
+}
+.card-paper {
+  position: absolute; inset: 0;
+  background: var(--paper);
+}
+.card-paper canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.card-text {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: calc(var(--w) * 0.03);
+  padding: 25% 14% 17%;
+  text-align: center;
+  color: var(--ink);
+}
+.caps {
+  margin: 0;
+  font-family: var(--font-caps);
+  font-size: calc(var(--w) * 0.035);
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.caps.big { font-size: calc(var(--w) * 0.05); letter-spacing: 0.08em; line-height: 1.15; }
+.script {
+  margin: 0;
+  font-family: var(--font-script);
+  font-size: calc(var(--w) * 0.05);
+  line-height: 1.35;
+}
+.script.big { font-size: calc(var(--w) * 0.062); line-height: 1.3; text-wrap: balance; }
+.details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--w) * 0.04);
+  width: 100%;
+  margin-block: calc(var(--w) * 0.012);
+}
+.details .script { font-size: calc(var(--w) * 0.043); }
+.details div { min-width: 0; }
+.attire { font-size: calc(var(--w) * 0.038); margin-top: calc(var(--w) * 0.01); }
+.attire span { font-family: var(--font-caps); font-size: calc(var(--w) * 0.026); letter-spacing: .14em; display: block; }
+
+.pocket {
+  position: absolute; inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.pocket svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.addressee {
+  position: absolute;
+  left: 0; right: 0; bottom: 9%;
+  text-align: center;
+  font-family: var(--font-script);
+  font-size: calc(var(--w) * 0.06);
+  color: var(--ink);
+  opacity: .85;
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity .4s;
+}
+.stage.rise .addressee, .stage.settle .addressee { opacity: .55; }
+
+.flap {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 60%;
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+  transition: transform .9s cubic-bezier(.4,.1,.3,1);
+  z-index: 5;
+}
+.stage.flapped .flap { transform: rotateX(180deg); }
+.stage.flap-behind .flap { z-index: 0; }
+.face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flap-out {
+  background-color: var(--envelope-shade);
+  clip-path: polygon(0 0, 100% 0, 56% 93%, 50% 100%, 44% 93%);
+}
+.flap-out::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(0,0,0,.04));
+}
+.flap-in {
+  transform: rotateX(180deg);
+  background-color: var(--envelope);
+  clip-path: polygon(44% 7%, 50% 0, 56% 7%, 100% 100%, 0 100%);
+}
+.flap-in .liner { background-size: cover; background-position: center top; left: 5%; right: 5%; top: 8%; height: 92%; clip-path: polygon(44% 4%, 50% 0, 56% 4%, 100% 100%, 0 100%); }
+
+.seal {
+  position: absolute;
+  left: 50%; top: 100%;
+  width: calc(var(--w) * 0.2);
+  height: calc(var(--w) * 0.2);
+  transform: translate(-50%, -62%);
+  border: 0; padding: 0;
+  background: none;
+  cursor: pointer;
+  z-index: 7;
+  transition: transform .35s cubic-bezier(.3,1.6,.5,1), opacity .3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.seal:hover { transform: translate(-50%, -62%) scale(1.05) rotate(-3deg); }
+.seal:focus-visible { outline: 2px dashed var(--coral-deep); outline-offset: 6px; border-radius: 50%; }
+.seal canvas { width: 100%; height: 100%; display: block; }
+.seal-mark {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-family: var(--font-caps);
+  font-size: calc(var(--w) * 0.062);
+  letter-spacing: .02em;
+  color: #f6cdb8;
+  text-shadow: 0 1px 0 rgba(120, 25, 10, .55), 0 -1px 0 rgba(255, 210, 190, .35);
+  pointer-events: none;
+}
+.stage:not(.closed) .seal { transform: translate(-50%, -62%) scale(1.25); opacity: 0; pointer-events: none; }
+
+.hint {
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(var(--w) * 1.42);
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--muted);
+  transition: opacity .4s;
+}
+.stage:not(.closed) .hint { opacity: 0; }
+
+/* ---------- after ---------- */
+.after {
+  width: var(--w);
+  margin-top: calc(var(--w) * 0.06);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .7s, transform .7s;
+  visibility: hidden;
+}
+.after.show { opacity: 1; transform: none; visibility: visible; }
+.rsvp {
+  font-family: var(--font-caps);
+  font-size: 18px;
+  letter-spacing: .22em;
+  color: #fff7ee;
+  background: var(--coral);
+  border: 0;
+  border-radius: 999px;
+  padding: 15px 44px 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 var(--coral-deep), 0 10px 18px rgba(120, 40, 20, .25);
+  transition: transform .15s, box-shadow .15s;
+}
+.rsvp:hover { transform: translateY(-1px); }
+.rsvp:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--coral-deep), 0 4px 10px rgba(120, 40, 20, .2); }
+.rsvp:focus-visible, .replay:focus-visible { outline: 2px dashed var(--coral-deep); outline-offset: 4px; }
+.rsvp-card {
+  width: 100%;
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 22px 20px 20px;
+  background: var(--paper);
+  border-radius: 6px;
+  box-shadow: 0 10px 24px rgba(92, 70, 40, .16);
+  color: var(--ink);
+}
+.form-title { margin: 0; font-family: var(--font-script); font-size: 24px; text-align: center; line-height: 1.3; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field span, .choice legend {
+  font-family: var(--font-caps); font-size: 13px; letter-spacing: .16em; color: var(--muted);
+}
+.field input, .field textarea {
+  font: 17px/1.4 var(--font-serif);
+  color: var(--ink);
+  background: #fffaf1;
+  border: 1px solid var(--sand-deep);
+  border-radius: 4px;
+  padding: 10px 12px;
+  width: 100%;
+  resize: vertical;
+}
+.field input:focus, .field textarea:focus { outline: 2px solid var(--sky); outline-offset: 1px; border-color: transparent; }
+.field textarea::placeholder { color: #b39c86; font-style: italic; }
+.choice { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.choice legend { margin-bottom: 8px; padding: 0; }
+.choice label { flex: 1 1 130px; cursor: pointer; }
+.choice input { position: absolute; opacity: 0; pointer-events: none; }
+.choice label span {
+  display: block; text-align: center;
+  font: italic 17px/1.2 var(--font-serif);
+  padding: 11px 10px;
+  border: 1px solid var(--sand-deep);
+  border-radius: 999px;
+  background: #fffaf1;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.choice input:checked + span { background: var(--ink); color: #fff7ee; border-color: var(--ink); }
+.choice input:focus-visible + span { outline: 2px dashed var(--coral-deep); outline-offset: 3px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.send {
+  font-family: var(--font-caps); font-size: 16px; letter-spacing: .2em;
+  color: #fff7ee; background: var(--coral);
+  border: 0; border-radius: 999px; padding: 13px 20px 12px;
+  cursor: pointer; box-shadow: 0 4px 0 var(--coral-deep);
+}
+.send:disabled { opacity: .6; cursor: progress; }
+.send:focus-visible { outline: 2px dashed var(--coral-deep); outline-offset: 4px; }
+.form-msg { margin: 0; min-height: 1.3em; font-style: italic; font-size: 15px; text-align: center; color: var(--coral-deep); }
+.thanks { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.thanks-big { font-size: 30px; margin: 0; }
+.note { margin: 0; font-style: italic; font-size: 15px; color: var(--muted); text-align: center; min-height: 1.4em; }
+.replay {
+  background: none; border: 0; cursor: pointer;
+  font-family: var(--font-serif); font-style: italic; font-size: 15px;
+  color: var(--muted); text-decoration: underline; text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .env, .card, .flap, .after, .seal { transition: none !important; animation: none !important; }
+}
+</style>
+
+<main class="page">
+  <svg class="logo" width="173" height="42" viewBox="0 0 173 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Elephant Room" role="img"><defs><clipPath id="er-logo-clip"><rect width="173" height="42" fill="white"></rect></clipPath></defs><g clip-path="url(#er-logo-clip)"><path d="M164.359 30.064L162.77 38.5435L161.106 30.064H158.549V41.8757H160.337V34.4654L162.05 41.8757H163.49L165.03 34.4654V41.8757H166.793V30.064H164.359Z" fill="#F9A720"></path><path d="M153.185 29.9395C153.979 29.9395 154.625 30.213 155.171 30.7601C155.718 31.3071 155.991 31.9785 155.991 32.7494V39.1899C155.991 39.9856 155.718 40.6322 155.171 41.1792C154.625 41.7263 153.955 41.9998 153.185 41.9998C152.39 41.9998 151.745 41.7263 151.198 41.1792C150.652 40.6322 150.379 39.9608 150.379 39.1899V32.7494C150.379 31.9785 150.652 31.3071 151.198 30.7601C151.745 30.213 152.415 29.9395 153.185 29.9395ZM154.153 32.7245C154.153 32.451 154.054 32.2023 153.855 32.0034C153.657 31.8045 153.408 31.705 153.135 31.705C152.862 31.705 152.614 31.8045 152.415 32.0034C152.216 32.2023 152.117 32.451 152.117 32.7245V39.1899C152.117 39.4634 152.216 39.7121 152.415 39.911C152.614 40.11 152.862 40.2094 153.135 40.2094C153.408 40.2094 153.657 40.11 153.855 39.911C154.054 39.7121 154.153 39.4634 154.153 39.1899V32.7245Z" fill="#F9A720"></path><path d="M145.04 29.9395C145.835 29.9395 146.481 30.213 147.027 30.7601C147.573 31.3071 147.846 31.9785 147.846 32.7494V39.1899C147.846 39.9856 147.573 40.6322 147.027 41.1792C146.481 41.7263 145.81 41.9998 145.04 41.9998C144.246 41.9998 143.6 41.7263 143.054 41.1792C142.508 40.6322 142.234 39.9608 142.234 39.1899V32.7494C142.234 31.9785 142.508 31.3071 143.054 30.7601C143.6 30.213 144.246 29.9395 145.04 29.9395ZM146.009 32.7245C146.009 32.451 145.909 32.2023 145.711 32.0034C145.512 31.8045 145.264 31.705 144.991 31.705C144.718 31.705 144.469 31.8045 144.271 32.0034C144.072 32.2023 143.973 32.451 143.973 32.7245V39.1899C143.973 39.4634 144.072 39.7121 144.271 39.911C144.469 40.11 144.718 40.2094 144.991 40.2094C145.264 40.2094 145.512 40.11 145.711 39.911C145.909 39.7121 146.009 39.4634 146.009 39.1899V32.7245Z" fill="#F9A720"></path><path d="M136.846 30.0888C137.839 30.0888 138.559 30.3624 139.031 30.9094C139.429 31.3819 139.652 32.0533 139.652 32.8988V34.6146C139.652 35.4601 139.329 36.1563 138.708 36.7283L140.025 41.8757H138.113L137.045 37.4245H136.896H135.878V41.8757H134.09V30.064H136.846V30.0888ZM137.914 32.9236C137.914 32.2522 137.566 31.9041 136.896 31.9041H135.828V35.6839H136.896C137.169 35.6839 137.417 35.5844 137.616 35.3855C137.815 35.1865 137.914 34.9379 137.914 34.6643V32.9236Z" fill="#F9A720"></path><path d="M161.379 8.50461C161.379 7.88294 161.056 7.55967 160.435 7.55967H156.065C155.469 7.55967 155.121 7.21153 155.121 6.61473V3.10851C155.121 2.48684 155.469 2.16357 156.065 2.16357H172.056C172.677 2.16357 173 2.48684 173 3.10851V6.61473C173 7.21153 172.677 7.55967 172.056 7.55967H167.686C167.09 7.55967 166.742 7.88294 166.742 8.50461V23.1511C166.742 23.748 166.419 24.0961 165.799 24.0961H162.297C161.701 24.0961 161.354 23.748 161.354 23.1511L161.379 8.50461Z" fill="#151515"></path><path d="M139.627 2.18848C140.149 2.18848 140.496 2.41228 140.72 2.90961L144.966 13.3288C145.09 13.6023 145.338 13.5526 145.338 13.2293V3.13341C145.338 2.51174 145.686 2.18848 146.282 2.18848H149.783C150.404 2.18848 150.727 2.51174 150.727 3.13341V23.1512C150.727 23.748 150.404 24.0961 149.783 24.0961H145.189C144.668 24.0961 144.32 23.8723 144.097 23.375L139.851 12.9558C139.727 12.6823 139.478 12.732 139.478 13.0553V23.1512C139.478 23.748 139.155 24.0961 138.535 24.0961H135.033C134.437 24.0961 134.09 23.748 134.09 23.1512V3.13341C134.09 2.51174 134.437 2.18848 135.033 2.18848H139.627Z" fill="#151515"></path><path d="M131.01 11.7867C130.737 10.792 130.191 9.89681 129.943 9.67301C129.545 9.32487 129.545 10.1703 129.545 10.1703C129.371 10.0957 128.825 10.5185 129.098 10.6179C130.439 11.165 130.265 14.4723 128.204 14.5966C126.143 14.721 126.218 12.657 126.118 8.67833C126.019 4.69965 125.2 2.83464 123.834 1.79023C120.805 -0.547244 113.032 -0.34831 107.718 0.944763C105.657 1.4421 103.472 2.73517 102.231 7.03713C101.858 8.28047 101.709 10.1952 101.684 12.2592C101.684 12.6073 100.269 14.4972 100.741 14.7956C101.113 15.0194 101.684 13.8009 101.684 14.0496C101.759 18.6748 102.33 23.4989 102.429 23.7725C102.653 24.3941 105.732 24.1455 105.98 23.7973C106.154 23.5735 106.03 22.6037 106.129 21.0371C106.253 19.4705 107.271 19.197 107.917 19.2716C108.563 19.3462 111.22 19.3959 112.859 19.2467C114.497 19.0975 114.448 19.8187 114.448 20.2414C114.448 20.6641 114.597 23.1259 114.671 23.7227C114.746 24.2201 118.818 23.9963 118.818 23.4492C118.818 23.1011 119.066 17.9785 119.141 15.9892C119.215 13.9998 119.265 13.229 119.489 13.3036C119.712 13.3782 121.003 15.268 124.678 16.4865C127.807 17.506 130.216 16.014 130.961 13.9998C131.11 13.5274 131.209 12.5576 131.01 11.7867ZM116.832 11.0904C116.534 12.3586 116.36 15.641 113.653 12.856C111.89 11.0407 110.599 8.927 110.226 7.90746C109.928 7.11173 109.208 4.74938 111.021 3.72984C112.834 2.68544 116.037 2.85951 116.459 2.90924C116.881 2.95897 117.527 3.38171 117.502 4.60018C117.477 6.14192 117.105 9.99627 116.832 11.0904ZM121.599 8.7778C121.227 8.7778 120.358 7.90746 120.358 7.53446C120.358 7.16146 121.227 6.29112 121.599 6.29112C121.972 6.29112 122.841 7.16146 122.841 7.53446C122.841 7.90746 121.972 8.7778 121.599 8.7778Z" fill="#F9A720"></path><path d="M84.6753 2.18848C85.2712 2.18848 85.6189 2.53661 85.6189 3.13341V10.9665C85.6189 11.5633 85.9665 11.9114 86.5625 11.9114H89.5671C90.1878 11.9114 90.5106 11.5633 90.5106 10.9665V3.13341C90.5106 2.53661 90.8583 2.18848 91.4542 2.18848H94.9555C95.5762 2.18848 95.899 2.51174 95.899 3.13341V23.1512C95.899 23.748 95.5762 24.0961 94.9555 24.0961H91.4542C90.8583 24.0961 90.5106 23.748 90.5106 23.1512V18.2027C90.5106 17.581 90.1878 17.2578 89.5671 17.2578H86.5625C85.9665 17.2578 85.6189 17.581 85.6189 18.2027V23.1512C85.6189 23.748 85.2961 24.0961 84.6753 24.0961H81.1741C80.5781 24.0961 80.2305 23.748 80.2305 23.1512V3.13341C80.2305 2.51174 80.5533 2.18848 81.1741 2.18848H84.6753Z" fill="#151515"></path><path d="M68.0133 2.18848C73.5755 2.18848 75.8352 4.57569 75.8352 9.69825C75.8352 14.8208 73.5755 17.208 68.0133 17.208H66.5234C65.9274 17.208 65.5798 17.5313 65.5798 18.153V23.1512C65.5798 23.7729 65.257 24.0961 64.6362 24.0961H61.135C60.539 24.0961 60.1914 23.748 60.1914 23.1512V3.15828C60.1914 2.53661 60.5142 2.21334 61.135 2.18848H68.0133ZM68.2119 11.8119C69.7018 11.8119 70.4716 11.6379 70.4716 9.67338C70.4716 7.73377 69.7267 7.53484 68.2119 7.53484H66.5234C65.9274 7.53484 65.5798 7.8581 65.5798 8.47977V10.867C65.5798 11.4638 65.9274 11.8119 66.5234 11.8119H68.2119V11.8119Z" fill="#151515"></path><path d="M53.7342 2.18848C54.355 2.18848 54.6778 2.51174 54.6778 3.13341V6.63963C54.6778 7.23643 54.355 7.58457 53.7342 7.58457H46.1607C45.5647 7.58457 45.2171 7.90784 45.2171 8.52951V9.52418C45.2171 10.121 45.5647 10.4691 46.1607 10.4691H51.0028C51.6236 10.4691 51.9464 10.7675 51.9464 11.4141V14.9203C51.9464 15.5171 51.6236 15.8652 51.0028 15.8652H46.1607C45.5647 15.8652 45.2171 16.1885 45.2171 16.8101V17.8048C45.2171 18.4016 45.5647 18.7498 46.1607 18.7498H53.7342C54.355 18.7498 54.6778 19.073 54.6778 19.6947V23.2009C54.6778 23.8226 54.355 24.1458 53.7342 24.1458H40.6233C40.0273 24.1458 39.6797 23.7977 39.6797 23.2009V3.18315C39.6797 2.56148 40.0273 2.23821 40.6233 2.23821H53.7342V2.18848V2.18848Z" fill="#151515"></path><path d="M24.8321 2.18848C25.4529 2.18848 25.7757 2.51174 25.7757 3.13341V17.78C25.7757 18.3768 26.1233 18.7249 26.7193 18.7249H33.6969C34.3177 18.7249 34.6405 19.0482 34.6405 19.6698V23.176C34.6405 23.7977 34.3425 24.121 33.6969 24.121H21.3557C20.7597 24.121 20.4121 23.7728 20.4121 23.176V3.15828C20.4121 2.53661 20.7597 2.21334 21.3557 2.21334H24.8321V2.18848Z" fill="#151515"></path><path d="M14.0545 2.18848C14.6753 2.18848 14.9981 2.51174 14.9981 3.13341V6.63963C14.9981 7.23643 14.6753 7.58457 14.0545 7.58457H6.50581C5.90986 7.58457 5.56222 7.90784 5.56222 8.52951V9.52418C5.56222 10.121 5.90986 10.4691 6.50581 10.4691H11.3479C11.9687 10.4691 12.2915 10.7675 12.2915 11.4141V14.9203C12.2915 15.5171 11.9687 15.8652 11.3479 15.8652H6.50581C5.90986 15.8652 5.56222 16.1885 5.56222 16.8101V17.8048C5.56222 18.4016 5.90986 18.7498 6.50581 18.7498H14.0794C14.7002 18.7498 15.023 19.073 15.023 19.6947V23.2009C15.023 23.8226 14.7002 24.1458 14.0794 24.1458H0.943591C0.347639 24.1458 0 23.7977 0 23.2009V3.18315C0 2.56148 0.347639 2.23821 0.943591 2.23821H14.0545V2.18848Z" fill="#151515"></path></g></svg>
+
+  <div class="stage closed" id="stage">
+    <div class="env" id="env">
+      <div class="env-back paper-tex"><div class="liner" id="linerBack"></div></div>
+
+      <div class="slot">
+        <article class="card" id="card" aria-label="Invitation">
+          <div class="card-paper" id="cardPaper">
+            <canvas id="cardCanvas" aria-hidden="true"></canvas>
+            <div class="card-text">
+              <p class="caps big">Day Drinks<br>by the Ocean</p>
+              <p class="script big">for Elephant Room&rsquo;s Annual Christmas&nbsp;Party</p>
+              <div class="details">
+                <div><p class="script">Friday, 4th December<br>2026 at 12pm</p></div>
+                <div><p class="script">Riva Rose Bay<br>594 New South Head&nbsp;Rd, Rose&nbsp;Bay</p></div>
+              </div>
+              <p class="caps">A day of drinks, dancing,<br>lunch &amp; more</p>
+              <p class="script attire"><span>Attire</span>the cutest Summer version of yourself</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="pocket">
+        <svg viewBox="0 0 100 68" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="gL" x1="0" x2="1"><stop offset="0" stop-color="#dfe8e3"/><stop offset="1" stop-color="#d3dfd9"/></linearGradient>
+            <linearGradient id="gR" x1="1" x2="0"><stop offset="0" stop-color="#dfe8e3"/><stop offset="1" stop-color="#d3dfd9"/></linearGradient>
+            <linearGradient id="gB" y1="1" y2="0" x1="0" x2="0"><stop offset="0" stop-color="#e5ede9"/><stop offset="1" stop-color="#d8e3de"/></linearGradient>
+          </defs>
+          <path d="M0 0 L49 37 Q50 38 49 39 L0 68 Z" fill="url(#gL)"/>
+          <path d="M100 0 L51 37 Q50 38 51 39 L100 68 Z" fill="url(#gR)"/>
+          <path d="M0 68 L47 33 Q50 31 53 33 L100 68 Z" fill="url(#gB)" stroke="#b4c6bd" stroke-width=".25" vector-effect="non-scaling-stroke"/>
+          <path d="M0 0 L49 37 M100 0 L51 37" stroke="#b4c6bd" stroke-width=".25" fill="none" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </div>
+      <div class="addressee" id="addressee">for you</div>
+
+      <div class="flap" id="flap">
+        <div class="face flap-out paper-tex"></div>
+        <div class="face flap-in paper-tex"><div class="liner" id="linerFlap"></div></div>
+        <button class="seal" id="seal" aria-label="Break the seal to open the invitation">
+          <canvas id="sealCanvas" aria-hidden="true"></canvas>
+          <span class="seal-mark">ER</span>
+        </button>
+      </div>
+    </div>
+
+    <p class="hint">Tap the seal to open</p>
+  </div>
+
+  <section class="after" id="after">
+    <button class="rsvp" id="rsvp" type="button" aria-expanded="false" aria-controls="rsvpForm">RSVP</button>
+    <form class="rsvp-card" id="rsvpForm" hidden novalidate>
+      <p class="form-title">Will you join us by the water?</p>
+      <label class="field" for="rsvpName">
+        <span>Your name</span>
+        <input id="rsvpName" name="name" type="text" autocomplete="name" maxlength="80" required>
+      </label>
+      <fieldset class="choice">
+        <legend>Can you make it?</legend>
+        <label for="rsvpYes"><input id="rsvpYes" type="radio" name="attending" value="Yes" required><span>Joyfully, yes</span></label>
+        <label for="rsvpNo"><input id="rsvpNo" type="radio" name="attending" value="No"><span>Sadly, no</span></label>
+      </fieldset>
+      <label class="field" for="rsvpDiet" id="dietField">
+        <span>Dietary requirements</span>
+        <textarea id="rsvpDiet" name="dietary" rows="2" maxlength="300" placeholder="e.g. vegetarian, coeliac, nut allergy. Leave blank if none"></textarea>
+      </label>
+      <input class="hp" id="rsvpWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="send" id="rsvpSend" type="submit">Send RSVP</button>
+      <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+    </form>
+    <div class="thanks" id="thanks" hidden role="status" aria-live="polite">
+      <p class="script thanks-big" id="thanksBig"></p>
+      <p class="note" id="thanksSmall"></p>
+      <button class="replay" id="rsvpAgain" type="button">Change my RSVP</button>
+    </div>
+    <button class="replay" id="replay" type="button">Close the envelope</button>
+  </section>
+</main>
+
+<script>
+(() => {
+  const TAU = Math.PI * 2;
+  let C, R;
+
+  // ---------- painting kit: seeded wobble, layered translucent passes ----------
+  function mulberry(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  const rr = (a, b) => a + (b - a) * R();
+  const mid = (p, q) => [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2];
+
+  function smoothClosed(pts) {
+    C.beginPath();
+    const n = pts.length;
+    const m0 = mid(pts[n - 1], pts[0]);
+    C.moveTo(m0[0], m0[1]);
+    for (let i = 0; i < n; i++) {
+      const p = pts[i], m = mid(p, pts[(i + 1) % n]);
+      C.quadraticCurveTo(p[0], p[1], m[0], m[1]);
+    }
+    C.closePath();
+  }
+  function blobPts(cx, cy, rx, ry, irr = 0.1, rot = 0, n = 44) {
+    const p1 = rr(0, TAU), p2 = rr(0, TAU), k1 = 2 + Math.floor(rr(0, 3)), k2 = 5 + Math.floor(rr(0, 3));
+    const c = Math.cos(rot), s = Math.sin(rot), pts = [];
+    for (let i = 0; i < n; i++) {
+      const t = i / n * TAU;
+      const m = 1 + irr * (0.6 * Math.sin(k1 * t + p1) + 0.4 * Math.sin(k2 * t + p2)) + rr(-irr, irr) * 0.25;
+      const x = Math.cos(t) * rx * m, y = Math.sin(t) * ry * m;
+      pts.push([cx + x * c - y * s, cy + x * s + y * c]);
+    }
+    return pts;
+  }
+  function blob(cx, cy, rx, ry, irr, rot) { smoothClosed(blobPts(cx, cy, rx, ry, irr, rot)); }
+  function paint(shape, color, alpha = 0.9, passes = 3, jitter = 1.2) {
+    for (let i = 0; i < passes; i++) {
+      C.save();
+      C.translate(rr(-jitter, jitter), rr(-jitter, jitter));
+      shape();
+      C.globalAlpha = Math.min(1, alpha * (i === 0 ? 0.75 : 0.45));
+      C.fillStyle = color;
+      C.fill();
+      C.restore();
+    }
+  }
+  function stroke(pts, w, color, alpha = 1, taper = true) {
+    C.save();
+    C.strokeStyle = color; C.lineCap = "round"; C.lineJoin = "round"; C.globalAlpha = alpha;
+    const n = pts.length - 1;
+    for (let i = 0; i < n; i++) {
+      const t = i / n;
+      const tp = taper ? Math.sin(Math.PI * (0.15 + 0.85 * t)) * 0.6 + 0.4 : 1;
+      C.lineWidth = Math.max(0.4, w * tp * (0.8 + 0.4 * R()));
+      C.beginPath(); C.moveTo(pts[i][0], pts[i][1]); C.lineTo(pts[i + 1][0], pts[i + 1][1]); C.stroke();
+    }
+    C.restore();
+  }
+  function wavy(x0, y0, x1, y1, amp, waves, n = 40) {
+    const dx = x1 - x0, dy = y1 - y0, len = Math.hypot(dx, dy), nx = -dy / len, ny = dx / len, ph = rr(0, TAU);
+    const pts = [];
+    for (let i = 0; i <= n; i++) {
+      const t = i / n, o = Math.sin(t * waves * TAU + ph) * amp + rr(-amp, amp) * 0.12;
+      pts.push([x0 + dx * t + nx * o, y0 + dy * t + ny * o]);
+    }
+    return pts;
+  }
+  function dot(x, y, r, color, a = 1) {
+    C.save(); C.globalAlpha = a; C.fillStyle = color;
+    blob(x, y, r, r * rr(0.8, 1.1), 0.18, rr(0, TAU)); C.fill(); C.restore();
+  }
+  function grain(w, h, amt) {
+    const img = C.getImageData(0, 0, w, h), d = img.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const g = (R() - 0.5) * amt;
+      d[i] += g; d[i + 1] += g; d[i + 2] += g;
+    }
+    C.putImageData(img, 0, 0);
+  }
+
+  // ---------- motifs ----------
+  function lemon(cx, cy, r, rays) {
+    if (rays) {
+      const n = 14;
+      for (let i = 0; i < n; i++) {
+        const t = i / n * TAU + rr(-0.05, 0.05), len = r * (i % 2 ? 1.5 : 1.78) * rr(0.94, 1.06), d = 0.13;
+        paint(() => {
+          C.beginPath();
+          C.moveTo(cx + Math.cos(t - d) * r * 1.02, cy + Math.sin(t - d) * r * 1.02);
+          C.quadraticCurveTo(cx + Math.cos(t) * len * 0.8, cy + Math.sin(t) * len * 0.8 + rr(-2, 2), cx + Math.cos(t) * len, cy + Math.sin(t) * len);
+          C.quadraticCurveTo(cx + Math.cos(t) * len * 0.8, cy + Math.sin(t) * len * 0.8, cx + Math.cos(t + d) * r * 1.02, cy + Math.sin(t + d) * r * 1.02);
+          C.closePath();
+        }, i % 2 ? "#f4c64a" : "#eea83a", 0.95, 2, 0.8);
+      }
+    }
+    paint(() => blob(cx, cy, r, r, 0.04, 0), "#e7a52c", 1, 3, 0.8);
+    paint(() => blob(cx, cy, r * 0.84, r * 0.84, 0.05, 0), "#f9df78", 1, 3, 0.6);
+    const segs = 10, off = rr(0, TAU);
+    for (let i = 0; i < segs; i++) {
+      const t = off + i / segs * TAU;
+      stroke(wavy(cx + Math.cos(t) * r * 0.1, cy + Math.sin(t) * r * 0.1, cx + Math.cos(t) * r * 0.8, cy + Math.sin(t) * r * 0.8, r * 0.015, 0.5, 6), r * 0.07, "#fff6d6", 0.9, false);
+    }
+    dot(cx, cy, r * 0.1, "#fff6d6");
+    for (let i = 0; i < 6; i++) {
+      const t = off + (i + 0.5) / segs * TAU * 1.6, d = r * rr(0.4, 0.6);
+      dot(cx + Math.cos(t) * d, cy + Math.sin(t) * d, r * 0.04, "#efc24e", 0.8);
+    }
+  }
+  function spiralShell(cx, cy, r, rot) {
+    paint(() => {
+      const pts = [], n = 36;
+      for (let i = 0; i < n; i++) {
+        const t = i / n * TAU, m = i % 2 ? 1.0 : 1.2 * rr(0.95, 1.05);
+        pts.push([cx + Math.cos(t) * r * m, cy + Math.sin(t) * r * m]);
+      }
+      smoothClosed(pts);
+    }, "#f2b7a6", 1, 3, 1);
+    paint(() => blob(cx, cy, r * 0.95, r * 0.93, 0.06, rot), "#fcebdd", 1, 3, 0.8);
+    const turns = 5.2 * Math.PI, sp = [], band = [];
+    for (let a = 0; a <= turns; a += 0.12) {
+      const k = a / turns, rad = r * 0.86 * Math.pow(k, 1.08);
+      sp.push([cx + Math.cos(a + rot) * rad, cy + Math.sin(a + rot) * rad]);
+      band.push([cx + Math.cos(a + rot - 0.5) * rad * 0.9, cy + Math.sin(a + rot - 0.5) * rad * 0.9]);
+    }
+    stroke(band, r * 0.16, "#f1a594", 0.45, false);
+    stroke(sp, r * 0.07, "#8d4a2c", 0.95, true);
+    for (let i = 0; i < 16; i++) {
+      const t = i / 16 * TAU + rot;
+      stroke(wavy(cx + Math.cos(t) * r * 0.9, cy + Math.sin(t) * r * 0.9, cx + Math.cos(t) * r * 1.08, cy + Math.sin(t) * r * 1.08, 0.5, 0.5, 3), r * 0.03, "#c0705a", 0.7, false);
+    }
+  }
+  function scallop(cx, cy, r, rot, fillC, ribC) {
+    C.save(); C.translate(cx, cy); C.rotate(rot);
+    const base = [0, r * 0.42], n = 12, edge = [];
+    for (let i = 0; i <= n; i++) {
+      const a = -Math.PI / 2 + (-1.15 + 2.3 * i / n);
+      edge.push([base[0] + Math.cos(a) * r, base[1] + Math.sin(a) * r]);
+    }
+    paint(() => {
+      C.beginPath(); C.moveTo(base[0] - r * 0.12, base[1]);
+      C.lineTo(edge[0][0], edge[0][1]);
+      for (let i = 0; i < n; i++) {
+        const p = edge[i], q = edge[i + 1], m = mid(p, q), d = Math.hypot(m[0] - base[0], m[1] - base[1]);
+        const k = (d + r * 0.09) / d;
+        C.quadraticCurveTo(base[0] + (m[0] - base[0]) * k, base[1] + (m[1] - base[1]) * k, q[0], q[1]);
+      }
+      C.lineTo(base[0] + r * 0.12, base[1]); C.closePath();
+    }, fillC, 1, 3, 1);
+    paint(() => { C.beginPath(); C.moveTo(-r * 0.32, base[1] + r * 0.02); C.lineTo(-r * 0.05, base[1] - r * 0.16); C.lineTo(r * 0.05, base[1] - r * 0.16); C.lineTo(r * 0.32, base[1] + r * 0.02); C.lineTo(r * 0.18, base[1] + r * 0.2); C.lineTo(-r * 0.18, base[1] + r * 0.2); C.closePath(); }, fillC, 1, 2, 0.8);
+    for (let i = 0; i <= n; i++) {
+      const e = edge[i];
+      stroke(wavy(base[0], base[1] - r * 0.05, e[0] * 0.96, base[1] + (e[1] - base[1]) * 0.96, r * 0.01, 0.6, 10), r * 0.035, ribC, 0.75, true);
+    }
+    C.restore();
+  }
+  function starfish(cx, cy, r, rot, color, dotC) {
+    const pts = [];
+    for (let i = 0; i < 20; i++) {
+      const arm = Math.floor(i / 4), k = i % 4, base = rot + arm / 5 * TAU;
+      const t = base + [0, 0.18, 0.63, 1.08][k] * (TAU / 5) * 0.5 * (k === 0 ? 0 : 1);
+      const rad = [r * rr(0.95, 1.05), r * 0.78, r * 0.38, r * 0.78][k];
+      const tt = k === 0 ? base : k === 2 ? base + TAU / 10 : k === 1 ? base + 0.09 : base + TAU / 5 - 0.09;
+      pts.push([cx + Math.cos(tt) * rad, cy + Math.sin(tt) * rad]);
+    }
+    paint(() => smoothClosed(pts.map(p => [p[0] + rr(-1, 1), p[1] + rr(-1, 1)])), color, 1, 3, 0.8);
+    for (let a = 0; a < 5; a++) {
+      const t = rot + a / 5 * TAU;
+      for (let k = 0.12; k < 0.8; k += 0.12) dot(cx + Math.cos(t) * r * k, cy + Math.sin(t) * r * k, r * 0.045 * (1 - k * 0.5), dotC, 0.9);
+      for (let j = 0; j < 4; j++) {
+        const k = rr(0.2, 0.7), s = rr(-0.12, 0.12);
+        dot(cx + Math.cos(t + s) * r * k, cy + Math.sin(t + s) * r * k, r * 0.025, dotC, 0.6);
+      }
+    }
+  }
+  function coral(x, y, ang, len, w, depth, color, tipC) {
+    const x1 = x + Math.cos(ang) * len, y1 = y + Math.sin(ang) * len;
+    stroke(wavy(x, y, x1, y1, len * 0.06, 0.7, 8), w, color, 1, false);
+    if (depth <= 0) { dot(x1, y1, w * 0.55, color); if (tipC) dot(x1, y1, w * 0.22, tipC, 0.8); return; }
+    const kids = depth > 2 && R() > 0.5 ? 3 : 2;
+    for (let i = 0; i < kids; i++) {
+      const spread = kids === 2 ? (i ? 1 : -1) * rr(0.35, 0.65) : (i - 1) * rr(0.45, 0.6);
+      coral(x1, y1, ang + spread, len * rr(0.62, 0.8), w * 0.78, depth - 1, color, tipC);
+    }
+  }
+  function seaweed(x, y, len, ang, color, leafC) {
+    const pts = [], n = 18, ph = rr(0, TAU);
+    for (let i = 0; i <= n; i++) {
+      const t = i / n, sw = Math.sin(t * 2.4 + ph) * len * 0.08;
+      pts.push([x + Math.cos(ang) * len * t - Math.sin(ang) * sw, y + Math.sin(ang) * len * t + Math.cos(ang) * sw]);
+    }
+    stroke(pts, len * 0.035, color, 1, true);
+    for (let i = 3; i < n; i += 2) {
+      const p = pts[i], side = (i % 4 === 1 ? 1 : -1), a = ang + side * 0.9;
+      const L = len * 0.13 * (1 - i / n * 0.5);
+      paint(() => blob(p[0] + Math.cos(a) * L * 0.6, p[1] + Math.sin(a) * L * 0.6, L * 0.75, L * 0.32, 0.12, a), i % 3 ? leafC : color, 1, 2, 0.6);
+    }
+  }
+
+  // ---------- liner: wavy candy stripes (summer Christmas), shells and citrus ----------
+  function paintLiner(w, h) {
+    const cv = document.createElement("canvas");
+    cv.width = w; cv.height = h;
+    C = cv.getContext("2d"); R = mulberry(1204);
+    C.fillStyle = "#fbf1df"; C.fillRect(0, 0, w, h);
+    C.save();
+    C.translate(w / 2, h / 2); C.rotate(-0.5);
+    const S = w * 0.13, span = Math.hypot(w, h);
+    for (let i = -8; i <= 8; i++) {
+      const y0 = i * S * 2, ph = rr(0, TAU), f = 3.2 / span;
+      paint(() => {
+        C.beginPath();
+        for (let x = -span; x <= span; x += 8) C.lineTo(x, y0 + Math.sin(x * f * TAU + ph) * S * 0.18 + rr(-0.6, 0.6));
+        for (let x = span; x >= -span; x -= 8) C.lineTo(x, y0 + S + Math.sin(x * f * TAU + ph + 0.7) * S * 0.18 + rr(-0.6, 0.6));
+        C.closePath();
+      }, "#e0603f", 0.95, 2, 1.2);
+      const pin = [];
+      for (let x = -span; x <= span; x += 10) pin.push([x, y0 + S * 1.5 + Math.sin(x * f * TAU + ph + 0.35) * S * 0.18]);
+      stroke(pin, S * 0.09, "#86ade0", 0.9, false);
+    }
+    C.restore();
+    const u = w;
+    spiralShell(u * 0.5, h * 0.3, u * 0.11, 0.4);
+    lemon(u * 0.2, h * 0.22, u * 0.075, false);
+    lemon(u * 0.82, h * 0.6, u * 0.065, false);
+    scallop(u * 0.78, h * 0.2, u * 0.09, 0.35, "#f6d3c2", "#c4785e");
+    scallop(u * 0.3, h * 0.68, u * 0.08, -0.4, "#fbe9d4", "#c99467");
+    starfish(u * 0.55, h * 0.74, u * 0.075, 0.3, "#f2b23c", "#fff1c8");
+    coral(u * 0.07, h * 1.02, -1.35, u * 0.11, u * 0.028, 3, "#5aa58f", "#c8ead9");
+    coral(u * 0.97, h * 0.98, -1.9, u * 0.1, u * 0.026, 3, "#5aa58f", "#c8ead9");
+    seaweed(u * 0.98, h * 0.08, u * 0.22, 2.3, "#4c8f63", "#7fbf7a");
+    grain(w, h, 18);
+    return cv.toDataURL("image/jpeg", 0.9);
+  }
+
+  // ---------- card: sea-glass washes, sandy ripples, corner motifs ----------
+  function paintCard(cv, cw, ch) {
+    C = cv.getContext("2d"); R = mulberry(412);
+    C.fillStyle = "#f9f2e4"; C.fillRect(0, 0, cw, ch);
+    const washes = ["#cfe6dc", "#c9dcef", "#f0dcbc", "#d6ebe2"];
+    for (let i = 0; i < 34; i++) {
+      const t = i / 34, side = Math.floor(t * 4), k = (t * 4) % 1;
+      const [x, y] = side === 0 ? [k * cw, 0] : side === 1 ? [cw, k * ch] : side === 2 ? [cw - k * cw, ch] : [0, ch - k * ch];
+      const r = cw * rr(0.12, 0.22);
+      paint(() => blob(x + rr(-10, 10), y + rr(-10, 10), r, r * rr(0.7, 1.1), 0.2, rr(0, TAU)), washes[i % 4], 0.55, 3, 3);
+    }
+    paint(() => blob(cw * 0.5, ch * 0.52, cw * 0.36, ch * 0.33, 0.12, 0), "#fbf5ea", 0.75, 3, 4);
+    const ripples = [
+      [0.05, 0.25, 0.42, 0.21, "#c79c6c"], [0.55, 0.035, 0.96, 0.07, "#7fa6d6"], [0.6, 0.15, 0.96, 0.2, "#c79c6c"],
+      [0.03, 0.4, 0.06, 0.62, "#7fa6d6"], [0.95, 0.32, 0.97, 0.6, "#c79c6c"], [0.3, 0.965, 0.66, 0.955, "#7fa6d6"],
+      [0.32, 0.9, 0.58, 0.93, "#c79c6c"], [0.02, 0.72, 0.1, 0.8, "#c79c6c"], [0.9, 0.66, 0.99, 0.74, "#7fa6d6"],
+    ];
+    for (const [a, b, c, d, col] of ripples) stroke(wavy(a * cw, b * ch, c * cw, d * ch, cw * 0.014, 2.2, 50), cw * 0.008, col, 0.6, true);
+    lemon(cw * 0.17, ch * 0.11, cw * 0.075, true);
+    coral(cw * 0.99, ch * 0.0, 2.2, cw * 0.1, cw * 0.022, 3, "#d9553a", "#f7c3a8");
+    seaweed(cw * 0.035, ch * 0.66, cw * 0.27, -1.45, "#4c8f63", "#87c07e");
+    seaweed(cw * 0.975, ch * 0.56, cw * 0.2, -1.75, "#4c8f63", "#87c07e");
+    for (const [x, y] of [[0.075, 0.5], [0.105, 0.47], [0.09, 0.53], [0.925, 0.43], [0.95, 0.41]]) {
+      dot(x * cw, y * ch, cw * 0.011, "#c8392b"); dot(x * cw - cw * 0.003, y * ch - cw * 0.003, cw * 0.003, "#ffd9cc", 0.9);
+    }
+    scallop(cw * 0.15, ch * 0.91, cw * 0.1, 0.35, "#f6cfc0", "#bf6f58");
+    starfish(cw * 0.85, ch * 0.89, cw * 0.085, -0.2, "#e2683f", "#fbd6b4");
+    spiralShell(cw * 0.5, ch * 0.985, cw * 0.045, 1.2);
+    grain(cv.width, cv.height, 14);
+  }
+
+  function paintSeal(cv, s) {
+    C = cv.getContext("2d"); R = mulberry(77);
+    const c = s / 2;
+    paint(() => blob(c, c, s * 0.47, s * 0.45, 0.07, 0), "#b8392a", 1, 3, 1);
+    const g = C.createRadialGradient(c * 0.8, c * 0.75, s * 0.05, c, c, s * 0.42);
+    g.addColorStop(0, "rgba(255,170,140,.5)"); g.addColorStop(1, "rgba(120,20,10,.25)");
+    C.fillStyle = g; blob(c, c, s * 0.42, s * 0.42, 0.03, 0); C.fill();
+    C.strokeStyle = "rgba(110,20,10,.45)"; C.lineWidth = s * 0.025;
+    blob(c, c, s * 0.33, s * 0.33, 0.02, 0); C.stroke();
+    C.strokeStyle = "rgba(255,200,180,.35)"; C.lineWidth = s * 0.012;
+    blob(c - s * 0.006, c - s * 0.008, s * 0.33, s * 0.33, 0.02, 0); C.stroke();
+  }
+
+  // ---------- card edge: soft shell-lip wave ----------
+  function cardEdge(el) {
+    R = mulberry(9);
+    const pts = [], seg = (n, f) => { for (let i = 0; i < n; i++) pts.push(f(i / n)); };
+    const amp = 1.1, wave = (t, k) => Math.sin(t * k * TAU) * amp + rr(-0.25, 0.25);
+    seg(60, t => [t * 100, amp + wave(t, 7)]);
+    seg(80, t => [100 - amp - wave(t, 9) * 0.8, t * 100]);
+    seg(60, t => [100 - t * 100, 100 - amp - wave(t, 7)]);
+    seg(80, t => [amp + wave(t, 9) * 0.8, 100 - t * 100]);
+    el.style.clipPath = "polygon(" + pts.map(p => p[0].toFixed(2) + "% " + p[1].toFixed(2) + "%").join(",") + ")";
+  }
+
+  // ---------- render ----------
+  const stage = document.getElementById("stage");
+  const card = document.getElementById("card");
+  const cardCanvas = document.getElementById("cardCanvas");
+  const sealCanvas = document.getElementById("sealCanvas");
+  const env = document.getElementById("env");
+  let paintedW = 0;
+
+  function render() {
+    const w = Math.round(env.offsetWidth);
+    if (!w || w === paintedW) return;
+    paintedW = w;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const liner = paintLiner(Math.round(w * dpr), Math.round(w * 0.62 * dpr));
+    document.getElementById("linerBack").style.backgroundImage = "url(" + liner + ")";
+    document.getElementById("linerFlap").style.backgroundImage = "url(" + liner + ")";
+    cardCanvas.width = Math.round(card.offsetWidth * dpr);
+    cardCanvas.height = Math.round(card.offsetHeight * dpr);
+    paintCard(cardCanvas, cardCanvas.width, cardCanvas.height);
+    const s = Math.round(sealCanvas.parentElement.offsetWidth * dpr);
+    sealCanvas.width = sealCanvas.height = s;
+    paintSeal(sealCanvas, s);
+  }
+  cardEdge(document.getElementById("cardPaper"));
+  render();
+  let rt;
+  window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(render, 150); });
+
+  // ---------- personal name from the link, e.g. …#Viv-Ray ----------
+  const raw = decodeURIComponent((location.hash || "").slice(1)).replace(/[-_.~]+/g, " ").trim();
+  const guest = raw && /^[\p{L}\d ]{1,40}$/u.test(raw) ? raw : "";
+  if (guest) document.getElementById("addressee").textContent = "for " + guest;
+
+  // ---------- open sequence ----------
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const after = document.getElementById("after");
+  let timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(fn, reduce ? 0 : ms));
+
+  function open() {
+    if (!stage.classList.contains("closed")) return;
+    stage.classList.remove("closed");
+    at(250, () => stage.classList.add("flapped"));
+    at(700, () => stage.classList.add("flap-behind"));
+    at(1150, () => stage.classList.add("rise"));
+    at(2300, () => { stage.classList.add("front"); stage.classList.remove("rise"); stage.classList.add("settle"); });
+    at(3300, () => after.classList.add("show"));
+  }
+  function close() {
+    timers.forEach(clearTimeout); timers = [];
+    after.classList.remove("show");
+    stage.classList.remove("settle");
+    stage.classList.add("rise");
+    at(1150, () => { stage.classList.remove("front"); stage.classList.remove("rise"); });
+    at(2300, () => stage.classList.remove("flap-behind"));
+    at(2350, () => { stage.classList.remove("flapped"); });
+    at(3250, () => stage.classList.add("closed"));
+  }
+  document.getElementById("seal").addEventListener("click", open);
+  document.getElementById("replay").addEventListener("click", close);
+  // ---------- RSVP → Google Sheet (Apps Script web app) ----------
+  const SCRIPT_URL = "";
+  const rsvpBtn = document.getElementById("rsvp");
+  const form = document.getElementById("rsvpForm");
+  const msg = document.getElementById("formMsg");
+  const thanks = document.getElementById("thanks");
+  const nameIn = document.getElementById("rsvpName");
+  const dietField = document.getElementById("dietField");
+  if (guest) nameIn.value = guest;
+
+  rsvpBtn.addEventListener("click", () => {
+    rsvpBtn.hidden = true;
+    rsvpBtn.setAttribute("aria-expanded", "true");
+    form.hidden = false;
+    (nameIn.value ? document.getElementById("rsvpYes") : nameIn).focus();
+  });
+  form.addEventListener("change", () => {
+    dietField.hidden = form.attending.value === "No";
+  });
+  document.getElementById("rsvpAgain").addEventListener("click", () => {
+    thanks.hidden = true; form.hidden = false; msg.textContent = "";
+  });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = nameIn.value.trim(), attending = form.attending.value;
+    if (!name) { msg.textContent = "Please add your name."; nameIn.focus(); return; }
+    if (!attending) { msg.textContent = "Please choose yes or no."; return; }
+    if (!SCRIPT_URL) { msg.textContent = "RSVPs aren't switched on yet. Check back soon."; return; }
+    const send = document.getElementById("rsvpSend");
+    send.disabled = true; send.textContent = "Sending…"; msg.textContent = "";
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          name, attending,
+          dietary: attending === "Yes" ? document.getElementById("rsvpDiet").value.trim() : "",
+          envelope: guest || "",
+          website: document.getElementById("rsvpWebsite").value,
+        }),
+      });
+      const out = await res.json();
+      if (!out.ok) throw new Error(out.error || "failed");
+      form.hidden = true;
+      thanks.hidden = false;
+      const first = name.split(/\s+/)[0];
+      document.getElementById("thanksBig").textContent = attending === "Yes" ? "See you by the water, " + first + "!" : "We'll miss you, " + first + ".";
+      document.getElementById("thanksSmall").textContent = attending === "Yes" ? "Your RSVP is in. Friday 4th December, 12pm at Riva Rose Bay." : "Thanks for letting us know.";
+    } catch (err) {
+      msg.textContent = "Your RSVP didn't send. Check your connection and try again.";
+    } finally {
+      send.disabled = false; send.textContent = "Send RSVP";
+    }
+  });
+
+  if (/[?&]state=rise\b/.test(location.search)) stage.className = "stage flapped flap-behind rise";
+  if (/[?&]state=open\b/.test(location.search)) {
+    stage.className = "stage flapped flap-behind front settle";
+    after.classList.add("show");
+    if (/[?&]form\b/.test(location.search)) rsvpBtn.click();
+  }
+})();
+</script>
+
+</body></html>
