@@ -411,6 +411,10 @@ body {
         <label for="rsvpYes"><input id="rsvpYes" type="radio" name="attending" value="Yes" required><span>Joyfully, yes</span></label>
         <label for="rsvpNo"><input id="rsvpNo" type="radio" name="attending" value="No"><span>Sadly, no</span></label>
       </fieldset>
+      <label class="field" for="rsvpEmail" id="emailField">
+        <span>Email for your calendar invite</span>
+        <input id="rsvpEmail" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" placeholder="you@example.com">
+      </label>
       <label class="field" for="rsvpDiet" id="dietField">
         <span>Dietary requirements</span>
         <textarea id="rsvpDiet" name="dietary" rows="2" maxlength="300" placeholder="e.g. vegetarian, coeliac, nut allergy. Leave blank if none"></textarea>
@@ -799,6 +803,7 @@ body {
     form.hidden = false;
     (nameIn.value ? document.getElementById("rsvpYes") : nameIn).focus();
   });
+  const emailIn = document.getElementById("rsvpEmail");
   form.addEventListener("change", () => {
     dietField.hidden = form.attending.value === "No";
   });
@@ -810,6 +815,9 @@ body {
     const name = nameIn.value.trim(), attending = form.attending.value;
     if (!name) { msg.textContent = "Please add your name."; nameIn.focus(); return; }
     if (!attending) { msg.textContent = "Please choose yes or no."; return; }
+    const email = emailIn.value.trim();
+    if (attending === "Yes" && !email) { msg.textContent = "Add your email so we can send your calendar invite."; emailIn.focus(); return; }
+    if (email && !emailIn.checkValidity()) { msg.textContent = "That email doesn't look right. Please check it."; emailIn.focus(); return; }
     if (!SCRIPT_URL) { msg.textContent = "RSVPs aren't switched on yet. Check back soon."; return; }
     const send = document.getElementById("rsvpSend");
     send.disabled = true; send.textContent = "Sending…"; msg.textContent = "";
@@ -818,19 +826,20 @@ body {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
-          name, attending,
+          name, attending, email,
           dietary: attending === "Yes" ? document.getElementById("rsvpDiet").value.trim() : "",
           envelope: guest || "",
           website: document.getElementById("rsvpWebsite").value,
         }),
       });
       const out = await res.json();
+      if (!out.ok && out.error === "email") { msg.textContent = "That email doesn't look right. Please check it."; emailIn.focus(); return; }
       if (!out.ok) throw new Error(out.error || "failed");
       form.hidden = true;
       thanks.hidden = false;
       const first = name.split(/\s+/)[0];
       document.getElementById("thanksBig").textContent = attending === "Yes" ? "See you by the water, " + first + "!" : "We'll miss you, " + first + ".";
-      document.getElementById("thanksSmall").textContent = attending === "Yes" ? "Your RSVP is in. Friday 4th December, 12pm at Riva Rose Bay." : "Thanks for letting us know.";
+      document.getElementById("thanksSmall").textContent = attending === "Yes" ? (out.invite ? "Your RSVP is in. A calendar invite is on its way to " + email + "." : "Your RSVP is in. Friday 4th December, 12pm at Riva Rose Bay.") : "Thanks for letting us know.";
     } catch (err) {
       msg.textContent = "Your RSVP didn't send. Check your connection and try again.";
     } finally {
